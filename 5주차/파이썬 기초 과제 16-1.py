@@ -46,26 +46,38 @@ for row in data:
         f.append(int(i.replace(',','')))
     male_away = np.array(m[1:], dtype=int)/int(m[0])
     female_away = np.array(f[1:], dtype=int)/int(f[0])
-    #print(type(male_home),type(male_away), type(female_home), type(female_away))
     s = np.sum((male_home-male_away)**2+(female_home-female_away)**2)
-    print(s)
     if s<mn and name not in row[0]:
         mn=s
         result_name=str(row[0])
-        print(result_name)
         result_male = male_away
         result_female = female_away
-    x = []
-    y = []
-    
+    m = []
+    f = []
+
+
+
 # 5. 궁금한 지역의 인구 구조와 가장 비슷한 인구 구조를 시각화
 import matplotlib.pyplot as plt
 plt.style.use('ggplot')
 plt.rc('font',family='Malgun Gothic')
-plt.title(name+'지역과 남자와 여자 인구구성비가 가장 비슷한 지역')
-plt.plot(male_home, label=name+ ' 남성')
-plt.plot(female_home, label=name+ ' 여성')
-plt.plot(result_male, label=result_name+ ' 남성')
-plt.plot(result_female, label=result_name+ '여성')
-plt.legend()
+plt.title(name+'지역과 남자의 인구구성비가 가장 비슷한 지역')
+plt.barh(range(101), -male_home, label=name+ ' 남성', color='red')
+plt.barh(range(101), -result_male, label=result_name+ ' 남성', color='yellow')
+plt.xticks([-0.020,-0.015,-0.010,-0.005, 0.000,0.005,0.010,0.015, 0.020],[0.020,0.015,0.010,0.005, 0.000,0.005,0.010,0.015, 0.020]) 
+plt.legend(bbox_to_anchor=(1.05, 1.0), loc='upper left')
+plt.tight_layout()
+plt.savefig('./sin.png')
+plt.show()
+
+import matplotlib.pyplot as plt
+plt.style.use('ggplot')
+plt.rc('font',family='Malgun Gothic')
+plt.title(name+'지역과 여자의 인구구성비가 가장 비슷한 지역')
+plt.barh(range(101), female_home, label=name+ ' 여성', color='blue')
+plt.barh(range(101), result_female, label=result_name+ '여성', color='green')
+plt.xticks([-0.020,-0.015,-0.010,-0.005, 0.000,0.005,0.010,0.015, 0.020],[0.020,0.015,0.010,0.005, 0.000,0.005,0.010,0.015, 0.020]) 
+plt.legend(bbox_to_anchor=(1.05, 1.0), loc='upper left')
+plt.tight_layout()
+plt.savefig('./sin.png')
 plt.show()
