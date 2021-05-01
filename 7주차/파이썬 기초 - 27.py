@@ -3,9 +3,7 @@
 # 빌보드 차트 데이터를 다시 불러 옵시다.
 import pandas as pd
 bilboard=pd.read_csv('bilboard.csv')
-bilboard_long=pd.melt(bilboard, id_vars=['year','artist','track','time','date.entered'],
- 
-var_name='wek',value_name='rating')
+bilboard_long=pd.melt(bilboard, id_vars=['year','artist','track','time','date.entered'], var_name='wek',value_name='rating')
 # bilboard_long 데이터프레임을 보면 year, artist, track, time, date에서 중복 데이터가 많습니다. 
 # 이러한 중복 데이터는 한 눈에 보기에는 편할 수 있지만, 
 # 데이터가 매우 크다면 (정말 매우 크다면, 즉, 수백 GB 또는 TB 수준) 이러한 중복 데이터는
