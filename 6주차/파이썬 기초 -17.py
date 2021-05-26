@@ -8,11 +8,13 @@ import csv
 f=open('age.csv')
 data=csv.reader(f)
 next(data)
+
 # 2. 궁금한 지역의 이름을 입력 받는다
 name=input('인구 구조가 알고 싶은 지역의 이름(읍면동 단위)을 입력해 주세요: ')
-mn=0
+mn=1
 result_name=''
 result=0
+
 # 3. 궁금한 지역의 인구 구조를 저장한다
 for row in data:
     if name in row[0]:
@@ -26,18 +28,22 @@ for row in data:
         mn=s
         result_name=row[0]
         result=away
-# 위의 결과는 안되는 것이 당연하다.
+
+# 위의 결과는 안되는 것이 당연하다. 
+# NOTE -> , 가 있어서 정수로 변경이 안되는 것이다. 그래서 ,를 다른 것으로 변경해줘야 했는데
+
 #%% 한번 불러온 데이터 여러번 사용하기
 import numpy as np
 import csv
 
 # 1. 데이터를 읽어 온다
-f=open('age2.csv')
+f=open('age2.csv') #이 파일은 ,를 공백으로 바꿔준 파일
 data=csv.reader(f)
 next(data)
 data=list(data) # 데이터를 리스트로 미리 저장
+
 # 2. 궁금한 지역의 이름을 입력 받는다
-name=input('인구 구조가 알고 싶은 지역의 이름(읍면동 단위)을 입력해 주세요: ')
+name=input('인구 구조가 알고 싶은 지역의 이름(읍면동 단위)을 입력해 주세요: ') # 모현읍
 mn=1
 result_name=''
 result=0
