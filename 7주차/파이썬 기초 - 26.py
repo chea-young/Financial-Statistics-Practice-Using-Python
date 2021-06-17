@@ -12,9 +12,15 @@
 # value_name \ var_name으로 위치를 변경한 열의 데이터를 저장한 열의 이름 지정
 # ------------------------------------------ # 다음 예제를 봅시다.
 import pandas as pd
-bilboard=pd.read_csv('bilboard.csv')
-bilboard_long=pd.melt(bilboard, id_vars=['year','artist','track','time','date.entered'], var_name='wek', value_name='rating')
-# 이렇게 melt메서드를 사용하여 자료를 세로로 관리하게 되면 장점들이 있습니다. # 1. 보기에 편함
+bilboard=pd.read_csv('billboard.csv')
+bilboard_long=pd.melt(bilboard, id_vars=['year','artist','track','time','date.entered'], var_name='week', value_name='rating')
+#                    작업할 data         그대로 둘 data                                    위치 변경 열이름   변경될 data 열 이름 
+# 지정하지 않은 변수들은 열에서 행으로 바뀌게 된다.   
+print(bilboard_long)
+
+#%%                
+# 이렇게 melt메서드를 사용하여 자료를 세로로 관리하게 되면 장점들이 있습니다. 
+# 1. 보기에 편함
 # 2. 연산을 수행하기가 편함. 왜냐하면 대부분의 연산을 수행하는 메서드들은 열기준으로 연산
 Loser=bilboard_long[bilboard_long.track=='Loser']
 Loser_mean=Loser.rating.mean()
@@ -31,32 +37,57 @@ ebola=pd.read_csv('country_timeseries.csv')
 # Deaths_Guinea: 기니에서 사망한 환자수
 # 하나의 변수가 '발병+지역' 또는 '사망+지역' 이라는 2가지의 의미를 가집니다. # 이렇게 하나의 변수가 2가지의 의미를 가지는 경우 별도의 2개 변수를 생성하여
 # 2가지 의미를 하나씩 나누어 가지게 하고 싶은 경우 어떻게 해야할까요?
+
 #%% split메서드로 열 이름 분리하기
 ebola_long=pd.melt(ebola, id_vars=['Date','Day'])
+print("-------------- 1 -----------------")
+print(ebola_long)
+
 # split메서드를 사용하여 열 이름을 분리
 variable_split=ebola_long.variable.str.split('_')
+print("--------------- 2 ----------------")
+print(variable_split)
+
 # variable_split은 시리즈 자료형이고, 각각의 시리즈에 저장된 값은 리스트입니다. print(type(variable_split)
+print("--------------- 3 ----------------")
 print(type(variable_split[0]))
+
 # get 메서드를 사용하여 variable_split에 있는 리스트를 한번에 추출
 status_values=variable_split.str.get(0)
 country_values=variable_split.str.get(1)
+print("-------------- 4 -----------------")
+print(status_values)
+print(country_values)
+
 # status_value와 country_value를 ebola_long데이터프레임에 추가해 봅시다. ebola_long['status']=status_values
 ebola_long['country']=country_values
+print("-------------- 5 -----------------")
+print(ebola_long['country'])
 #%% 3. pivot_table메서드를 사용하여 피벗 테이블 생성하기
 # 피벗 테이블: 특정 조건을 기준으로 행과 열로 자료를 정리한 테이블
 import pandas as pd
 weather=pd.read_csv('weather.csv')
 # 날짜별 온도가 옆으로 길게 늘어져 있어 보기 불편하니, melt메서드를 사용하여
 # 행과 열을 바꾸어 봅시다. 
+
 weather_melt=pd.melt(weather,id_vars=['id','year','month','element'], var_name='day',value_name='temp')
 # weather_melt 데이터프레임에는 element가 tmax와 tmin이 함께 있어 temp를 본 후에
 # 이 값이 tmax인지 tmin인지 확인해야하는 번거로움이 존재
 # 따라서 tmax와 tmin의 온도를 따로 가지고 있는 2개의 별도 변수를 생성하고 싶습니다. 
+print("-------------- 1 -----------------")
+print(weather_melt)
+
 weather_tidy=weather_melt.pivot_table(
 index=['id','year','month','day'], # 마치 melt메서드의 id_vars와 동일한 역할
 columns='element', # 피벗할 열 이름 지정
 values='temp', # 데이터로 들어갈 열 이름 지정
 dropna=False # 누락값 처리
 )
+
+print("-------------- 2 -----------------")
+print(weather_tidy)
+
 # index를 reset
-weather_tidy_flat=weather_tidy.reset_index()
+weather_tidy_flat=weather_tidy.reset_index() #index 추가
+print("-------------- 3 -----------------")
+print(weather_tidy_flat)

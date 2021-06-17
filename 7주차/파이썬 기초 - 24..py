@@ -4,7 +4,7 @@
 import pandas as pd
 import sys 
 
-sys.path.append('/src/GG') # NOTE absolute path
+#sys.path.append('/src/GG') # NOTE absolute path
 
 person=pd.read_csv('survey_person.csv')
 site=pd.read_csv('survey_site.csv')
