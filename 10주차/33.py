@@ -42,8 +42,10 @@ def my_mean(values):
     sum+=value
  return sum/n
 agg_my_mean=df.groupby('year').lifeExp.agg(my_mean)
+print(df)
+print(agg_my_mean)
 
-# 2개 인자 예제
+#%% 2개 인자 예제
 def my_mean_diff(values,diff_value):
  n=len(values)
  sum=0
@@ -54,10 +56,15 @@ def my_mean_diff(values,diff_value):
 global_mean=df.lifeExp.mean()
 print(global_mean)
 agg_mean_diff=df.groupby('year').lifeExp.agg(my_mean_diff,diff_value=global_mean)
+print(agg_mean_diff)
 
 #%% 3. 여러개의 메서드 한 번에 사용하기
 # numpy의 집계 메서드를 리스트로 담아 전달
 import numpy as np
 gdf=df.groupby('year').lifeExp.agg([np.count_nonzero, np.mean, np.std])
+print(gdf)
+
 # 딕셔너리의 키로 집계 메서드를 적용할 열 이름을 전달하고, 딕셔너리 값으로 집계 메서드를 전달
-gdf_dic=df.groupby('year').agg({'lifeExp': 'mean', 'pop': 'median','gdpPercap':'median'})
+gdf_dic=df.groupby('year').agg({'lifeExp': 'mean', 'pop': 'median','gdpPercap':'median'}) # NOTE mean, median은 함수 
+print(gdf_dic)
+# %%
