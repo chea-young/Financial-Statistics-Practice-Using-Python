@@ -6,17 +6,26 @@
 
 #%% 1. datetime 오브젝트
 # datetime 라이브러리는 날짜와 시간을 처리하는 등의 다양한 시계열 데이터에 적용되는 기능을 제공
-# datetime 오브젝트 사용하기 위해서는 datetime 라이브러리를 불러옵니다. from datetime import datetime
+# datetime 오브젝트 사용하기 위해서는 datetime 라이브러리를 불러옵니다. 
+from datetime import datetime
 # 현재시간 출력
 now1=datetime.now() # 자료형이 datetime
 now2=datetime.today()
+print('---------------1-----------------')
+print(now1)
+print('---------------2-----------------')
+print(now2)
 
-# datetime 오브젝트를 생성할 때 시간을 직접 입력하여 인자로 전달
+#%% datetime 오브젝트를 생성할 때 시간을 직접 입력하여 인자로 전달
 t1=datetime.now()
 t2=datetime(1970, 1, 1)
 t3=datetime(1970, 12, 12, 13, 24, 34)
+print('---------------1-----------------')
+print(t2)
+print('---------------2-----------------')
+print(t3)
 
-# datetime 오브젝트를 사용하면 시간 차이를 쉽게 계산 가능
+#%% datetime 오브젝트를 사용하면 시간 차이를 쉽게 계산 가능
 diff1=t1-t2
 diff2=t2-t1
 
@@ -25,18 +34,34 @@ diff2=t2-t1
 # 이 때 사용하는 것이 to_datetime메서드 
 import pandas as pd
 ebola=pd.read_csv('country_timeseries.csv')
-print(ebola.info())
 # ebola 데이터프레임을 보면 Date가 문자열로 저장되어 있음을 확인할 수 있습니다. # to_datetime메서드를 사용하여 Date 열의 자료형을 datetime오브젝트로 변환해 봅시다.ebola['date_dt']=pd.to_datetime(ebola['Date'])
 print(ebola.info())
 
 #%% to_datetime메서드에서 시간 형식 지정자 (%d, %m, %y)와 기호 (/, -)를 사용하여 
 # format인자에 전달하면 그 형식에 맞게 datetime오브젝트 생성 가능
 test_df1=pd.DataFrame({'order_day': ['01/01/15','02/01/15','03/01/15']})
+print('---------------1-----------------')
+print(test_df1)
+
 test_df1['date_dt1']=pd.to_datetime(test_df1['order_day'], format='%d/%m/%y')
+print('---------------2-----------------')
+print(test_df1)
+
 test_df1['date_dt2']=pd.to_datetime(test_df1['order_day'], format='%m/%d/%y')
+print('---------------3-----------------')
+print(test_df1)
+
 test_df1['date_dt3']=pd.to_datetime(test_df1['order_day'], format='%y/%m/%d')
+print('---------------4-----------------')
+print(test_df1)
+
 test_df2=pd.DataFrame({'order_day': ['01-01-15','02-01-15','03-01-15']})
+print('---------------5-----------------')
+print(test_df2)
+
 test_df2['date_dt']=pd.to_datetime(test_df2['order_day'], format='%y-%m-%d')
+print('---------------6-----------------')
+print(test_df2)
 
 #%% 다양한 시간형식 지정자
 #-----------------------------------------------------------------------------
@@ -78,12 +103,24 @@ nowDatetime=now.strftime('%Y-%m-%d %H:%M:%S')
 # 바로 지정하여 저장 가능
 ebola1=pd.read_csv('country_timeseries.csv',parse_dates=['Date'])
 print(ebola1.info())
-# dt접근자 사용하여 datetime오브젝트에서 날짜 정보 추출하기
+
+#%% dt접근자 사용하여 datetime오브젝트에서 날짜 정보 추출하기
+print('---------------1-----------------')
 print(ebola1['Date'][0].year)
+
+print('---------------2-----------------')
 print(ebola1['Date'][0].month)
+
+print('---------------3-----------------')
 print(ebola1['Date'][0].day)
+
+print('---------------4-----------------')
+
+#NOTE 이렇게 열 추가 해주는 것
 ebola1['year']=ebola1['Date'].dt.year
 ebola1['month']=ebola1['Date'].dt.month
 ebola1['day']=ebola1['Date'].dt.day
 print(ebola1.info()) # year, month, day는 정수형
+#%%
+print(ebola1[:10])
 # %%
