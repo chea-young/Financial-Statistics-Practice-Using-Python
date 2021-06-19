@@ -1,4 +1,4 @@
-date,close_price,open_price,high,low,volme,variation
+date,close_price,open_price,high,low,volume,variation
 2021-06-18,270000 ,269000 ,272000 ,269000 ,469.99K,0.37%
 2021-06-17,269000 ,270000 ,272000 ,268500 ,0.55K,-0.92%
 2021-06-16,271500 ,274500 ,274500 ,270000 ,0.20K,-1.27%

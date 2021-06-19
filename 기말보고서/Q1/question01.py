@@ -12,10 +12,12 @@ s =pd.read_csv('삼성.csv')
 c =pd.read_csv('셀트리온.csv')
 h =pd.read_csv('현대자동차.csv')
 
-# %%
 #2. high와 low 평균 구해서 s_data에 넣기
-s_data = s[['date', 'volume']]
+s_data = s.iloc[:, [0, -2]]
 s_data['price']=(pd.to_numeric(s['high'])+pd.to_numeric(s['low']))//2
+
+c_data = c.iloc[:, [0, -2]]
+c_data['price']=(pd.to_numeric(c['high'])+pd.to_numeric(c['low']))//2
 
 # %%
 #3. volume data 정리 -: 0 M: 제거, K: *100
@@ -34,5 +36,9 @@ for i in range(len(s_volume)):
         print(str(e))
         print(s_volume[i])
 s_data['volume'] = pd.DataFrame(s_volume)
+
+
+
+
 
 # %%
