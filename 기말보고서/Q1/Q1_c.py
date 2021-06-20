@@ -9,7 +9,7 @@ import numpy as np
 import pandas as pd
 
 # data 불러오기
-celtrion = yf.download('068270.KS', start="2018-01-02", end="2020-06-21")
+celtrion = yf.download('068270.KS', start="2018-01-02", end="2021-06-21")
 
 # 이동평균선 데이터 구하기
 celtrion['MA5'] = celtrion['Close'].rolling(5).mean()

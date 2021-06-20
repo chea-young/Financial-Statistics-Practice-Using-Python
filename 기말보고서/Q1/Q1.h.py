@@ -9,7 +9,7 @@ import numpy as np
 import pandas as pd
 
 # data 불러오기
-hyundai_M = yf.download('005380.KS', start="2018-01-02", end="2020-06-21")
+hyundai_M = yf.download('005380.KS', start="2018-01-02", end="2021-06-21")
 
 # 이동평균선 데이터 구하기
 hyundai_M['MA5'] = hyundai_M['Close'].rolling(5).mean()
