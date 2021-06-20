@@ -11,7 +11,7 @@ import numpy as np
 import pandas as pd 
 import yfinance as yf
 
-# 코스피 지수 불러오기 & 수익률 구하기
+#%% 코스피 지수 불러오기 & 수익률 구하기
 kospi = yf.download('^KS11', start="2019-10-01", end="2020-12-31")['Adj Close']
 # 이동평균 구하기
 # 5일 이동평균을 구해봅시다. 
@@ -28,7 +28,8 @@ ax.plot(kospi)
 ax.plot(ma5)
 ax.legend(['KOSPI','5days moving average'])
 
-#%%20일 이동편균을 구해봅시다. n=20
+#%%20일 이동편균을 구해봅시다. 
+n=20
 T=len(kospi)
 ma20=pd.DataFrame(columns=['Date','ma_20days'])
 for start in range(0,T-20):
@@ -41,7 +42,8 @@ ax=fig.add_subplot(1,1,1)
 ax.plot(kospi)
 ax.plot(ma20)
 ax.legend(['KOSPI','20days moving average'])
-#%%60일 이동편균을 구해봅시다. n=60
+#%%60일 이동편균을 구해봅시다. 
+n=60
 T=len(kospi)
 ma60=pd.DataFrame(columns=['Date','ma_60days'])
 for start in range(0,T-60):
@@ -96,15 +98,35 @@ ax.legend(['KOSPI','60days moving average'])
 #%%
 import mplfinance as mpf 
 kospi = yf.download('^KS11', start="2019-10-01", end="2020-12-31")
-# 기본차트
+#%% 기본차트
 mpf.plot(kospi) # type을 지정하지 않으면 OHLC형태의 차트가 출력
 mpf.plot(kospi,type='candle',title='KOSPI', ylabel='Price')
-# mplfinance plot에서 가능한 스타일 확인
-mpf.available_styles()
+
+mpf.available_styles()# mplfinance plot에서 가능한 스타일 확인
 mpf.plot(kospi,type='candle',style='sas',title='KOSPI', ylabel='Price')
+
 #%% 거래량(Volume) 추가
-mpf.plot(kospi, type='candle',style='sas', title='KOSPI', ylabel='Volume')
-# %%
-print(kospi[:10])
+mpf.plot(kospi,type='candle',style='sas',title='KOSPI', ylabel='Price',volume=True) # NOTE 볼륨을 자동으로 가져와서 그려준다.
+#%%
+mpf.plot(kospi,type='candle',style='sas',title='KOSPI', ylabel='Price',volume=True, ylabel_lower='Vol.')
+
+#%% 거래가 없는 날 추가
+mpf.plot(kospi,type='candle',style='sas',title='KOSPI',ylabel='Price',volume=True,ylabel_lower='Vol.',show_nontrading=True)
+
+#%% 사용자 정의 캔들챠트
+mc = mpf.make_marketcolors(up='red')
+s=mpf.make_mpf_style(marketcolors=mc)
+mpf.plot(kospi,type='candle',style=s, title='KOSPI', ylabel='Price',volume=True,ylabel_lower='Vol.',show_nontrading=True)
+
+#%% 이동평균 추가
+mpf.plot(kospi,type='candle',style=s, title='KOSPI',ylabel='Price',volume=True,ylabel_lower='Vol.', show_nontrading=True,mav=(5,20,60))
+
+
+#%% 그림저장
+mpf.plot(kospi,type='candle',style=s, title='KOSPI', ylabel='Price',volume=True,ylabel_lower='Vol.',show_nontrading=True,mav=(5,20,60),savefig='KOSPI candle chart_1.png')
+
+#%%
+mpf.plot(kospi,type='candle',style=s, title='KOSPI', ylabel='Price',volume=True,ylabel_lower='Vol.', 
+show_nontrading=True,mav=(5,20,60),savefig=dict(fname='KOSPI candle chart_2.png',dpi=100))
 
 # %%
