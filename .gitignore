@@ -2,3 +2,5 @@
 *.docx
 *.vscode
 *.pytest_cache
+*.pyc
+test*
