@@ -81,15 +81,17 @@ weight = np.array([0.5, 0.5])
 #%% 2-1. 포트폴리오 기대수익률 구하기
 # 포트폴리오 기대수익률 구하는 법 1
 logret_np = logret.iloc[:,1:3].to_numpy()
+print(logret[:10])
 portfolio_log_returns = np.dot(logret_np,weight.T)
 portfolio_log_returns = portfolio_log_returns[~np.isnan(portfolio_log_returns)]
 expected_portfilio_log_return = portfolio_log_returns.mean()*250
+print(expected_portfilio_log_return)
 
 #%% 포트폴리오 기대수익률 구하는 법 2
 # port_return: 포트폴리오의 기대수익률 = w1*삼성전자기대수익률 + w2*셀트리온기대수익률
 annual_expected_return_np=annual_expected_return.iloc[1:3].to_numpy() # 행렬구조로 저장합니다
 expected_portfilio_log_return2 = np.dot(weight,annual_expected_return_np) #numpy의 inner product 활용
-
+print(expected_portfilio_log_return2)
 #%% 2-2. 포트폴리오 변동성 구하기
 #%% 포트폴리오 변동성 구하는 법 1
 portfolio_variance = portfolio_log_returns.var()*250
