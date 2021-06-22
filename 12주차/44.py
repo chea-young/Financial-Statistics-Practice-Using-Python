@@ -120,16 +120,24 @@ logret=logret.dropna()
 # ============================================================================= 
 # 기대 수익률 구하기
 expected_return = logret.mean() # 일별수익률의 평균
-# 연간 기대수익률
+print(expected_return)
+#%% 연간 기대수익률
 annual_expected_return=expected_return*250
-# 연간 변동성 구하기
+print(annual_expected_return)
+#%% 연간 변동성 구하기
 variance=logret.var()*250
-# 연간 표준편차 구하기
+print(variance)
+#%% 연간 표준편차 구하기
 std=np.sqrt(variance)
+print(std)
 std2=logret.std() * np.sqrt(250)
-# 공분산 구하기 => 공분산은 단위에 의존
+print(std2)
+#%% 공분산 구하기 => 공분산은 단위에 의존
 cov=logret.cov()
-cov2=logret.cov()*250 #연간 공분산. # 상관계수 구하기
+print(cov)
+cov2=logret.cov()*250 #연간 공분산. 
+print(cov2)
+# 상관계수 구하기
 corr=logret.corr()
 # 상관관계의 시각화
 sns.heatmap(corr)

@@ -22,11 +22,13 @@ kospi = yf.download(tickers[2], start_date)
 #%%데이터 합치기
 stock_data = pd.DataFrame({'KOSPI': kospi['Adj Close'],'SAMSUNG':
 samsung_elec['Adj Close'],'Celtrion': celtrion['Adj Close']})
+print(stock_data[:10])
 logret = np.log(stock_data / stock_data.shift(1)) # 로그수익률=log(price_{t} /price_{t-1})
-
+print(logret[:10])
 #%% 1. 개별 주식 종목의 기대수익률, 변동성, 공분산, 상관계수 구하기
 # 1.1 개별 기대 수익률(평균) 구하기
 expected_return = logret.mean() # 일별수익률의 평균
+print(expected_return)
 # 연간 기대수익률(평균)
 annual_expected_return=expected_return*250
 
@@ -57,8 +59,7 @@ annual_expected_return=expected_return*250
 # 그럼 종목을 둘 중에 하나 선택해야 한다면 어떤 것을 선택하는 것이 좋을까요?
 # 이것은 투자자의 위험에 대한 선호도에 따라 결정이 됩니다. 
 # 위험(변동)을 선호하는 투자자는 종목2를, 
-# 위험회피 성향이 강한 투자자는 종목1을 선택합니다. 
-
+#%% 위험회피 성향이 강한 투자자는 종목1을 선택합니다. 
 variance=logret.var()*250 # 연간변동성(분산)=일별변동성(분산)*250
 
 #%% 연간 표준편차 구하기 - 표준편차는 분산의 제곱근
