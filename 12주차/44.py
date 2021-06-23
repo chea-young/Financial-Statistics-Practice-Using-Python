@@ -2,8 +2,7 @@
 # 야후로 부터 주가데이터를 다운받아 주가 그래프를 간단히 그려보고, 
 # 로그수익률, 기대수익률, 가격지수화, 변동성, 공분산, 상관계수를 구해보도록 합시다.
 #%% 아래 두가지 패키지 인스톨(Console창에 복사하여 붙여넣기)
-#%%
-#%%
+
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
@@ -20,7 +19,7 @@ help(dr.DataReader)
 samsung_elec = dr.DataReader('005930.KS','yahoo',start,end)
 print(samsung_elec[:10])
 
-#%%야후로 부터 데이터를 불러오는 또다른 방법. 
+#야후로 부터 데이터를 불러오는 또다른 방법. 
 #국내 주식 데이터 불러오기.
 import yfinance as yf
 samsung_elec = yf.download("005930.KS", start="2017-01-01", end="2020-05-31")
@@ -28,20 +27,20 @@ help(yf.download)
 print(samsung_elec.head())
 print(samsung_elec.tail())
 
-#%% 삼성
+# 삼성
 start_date = '2019-01-01'
 tickers = ['005930.KS', '068270.KS','^KS11'] #1 삼성전자 셀트리온 ticker(종목코드)
 samsung_elec = yf.download(tickers[0], start_date)
 samsung_elec['Adj Close'].plot()
 plt.plot(samsung_elec['Adj Close'])
 
-#%% 셀트리온
+# 셀트리온
 celtrion = yf.download(tickers[1], start_date)
 celtrion['Adj Close'].plot()
 kospi = yf.download(tickers[2], start_date)
 kospi['Adj Close'].plot()
 
-#%%데이터 합치기
+#데이터 합치기
 stock_data = pd.DataFrame({'KOSPI': kospi['Adj Close'],'SAMSUNG':
 samsung_elec['Adj Close'],'Celtrion': celtrion['Adj Close']})
 
@@ -120,16 +119,24 @@ logret=logret.dropna()
 # ============================================================================= 
 # 기대 수익률 구하기
 expected_return = logret.mean() # 일별수익률의 평균
-# 연간 기대수익률
+print(expected_return)
+#%% 연간 기대수익률
 annual_expected_return=expected_return*250
-# 연간 변동성 구하기
+print(annual_expected_return)
+#%% 연간 변동성 구하기
 variance=logret.var()*250
-# 연간 표준편차 구하기
+print(variance)
+#%% 연간 표준편차 구하기
 std=np.sqrt(variance)
+print(std)
 std2=logret.std() * np.sqrt(250)
-# 공분산 구하기 => 공분산은 단위에 의존
+print(std2)
+#%% 공분산 구하기 => 공분산은 단위에 의존
 cov=logret.cov()
-cov2=logret.cov()*250 #연간 공분산. # 상관계수 구하기
+print(cov)
+cov2=logret.cov()*250 #연간 공분산. 
+print(cov2)
+# 상관계수 구하기
 corr=logret.corr()
 # 상관관계의 시각화
 sns.heatmap(corr)
