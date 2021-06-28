@@ -74,13 +74,13 @@ data['Portfolio_before'] = data['Samsung']*data['S']+data['Celtrion']*data['C'] 
 stock_data = pd.DataFrame({'Samsung': samsung_elec['Adj Close'], 
 'Celtrion': celtrion['Adj Close'], 'Hyundai': hyundai_M['Adj Close']})
 
-#누적로그수익률 계산
+#%%누적로그수익률 계산
 logret = np.log(stock_data / stock_data.shift(1))
 d_logret = logret.cumsum()
 logret_p = np.log(data['Portfolio_after']/data['Portfolio_before'])
 d_logret_p = logret_p.cumsum()
 fig = plt.figure(figsize=(15, 10))
-d_logret_p.plot(linewidth=2.0, color='red')
+d_logret_p.plot(linewidth=2.0, color='red',label='Portfolio')
 d_logret['Samsung'].plot(linewidth=2.0, color='blue')
 d_logret['Celtrion'].plot(linewidth=2.0, color='#FFC300')
 d_logret['Hyundai'].plot(linewidth=2.0, color='green')
