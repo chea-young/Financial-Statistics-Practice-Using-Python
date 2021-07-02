@@ -133,8 +133,10 @@ axes1.scatter(x=tips['total_bill'],
  s=tips['size']*10, # size (점의 크기)
  c=tips['sex_color'], # color (점의 색깔)
  alpha=0.5) # alpha는 점의 투명도
-axes1.set_title('Total Bill vs Tip Colored by Sex and Size')
-axes1.set_xlabel('Total Bill')
-axes1.set_ylabel('Tip')
-axes1.legend(loc=(0.9, 0.9), ncol=1,frameon=True, shadow=True) # NOTE 범례추가, loc는 위치, ncol는 범례를 나타낼 때 열 개수
+axes1.set_title('Total Bill vs Tip Colored by Sex and Size',fontsize = 20)
+axes1.set_xlabel('Total Bill',fontsize = 18)
+axes1.set_ylabel('Tip',fontsize = 18)
+axes1.legend(loc=(1.005, 0.9), ncol=1,frameon=True, shadow=True) # NOTE 범례추가, loc는 위치, ncol는 범례를 나타낼 때 열 개수
+plt.rc('xtick', labelsize=15) 
+plt.rc('ytick', labelsize=15)
 # %%

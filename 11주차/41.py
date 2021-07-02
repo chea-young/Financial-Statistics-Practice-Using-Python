@@ -140,12 +140,16 @@ facet.add_legend()
 facet=sns.FacetGrid(tips, col='time',row='smoker',hue='sex') #NOTE hue로 들어간 sex가 Female가 Male이기 때문에 색이 2개인 그래프 생성
 facet.map(plt.scatter, 'total_bill', 'tip')
 
-#%% [과제 41-1] "gapminder.tsv" 데이터에 대하여 FacetGrid를 사용하여 국가별 lifeExp, pop, gdpPercap
-# 의 데이터를 설명할 그래프를 그려보시오. # 예제:
+#%% [과제 41-1] "gapminder.tsv" 데이터에 대하여 
+# FacetGrid를 사용하여 국가별 lifeExp, pop, gdpPercap
+# 의 데이터를 설명할 그래프를 그려보시오. 
+# 예제:
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
 df=pd.read_csv('gapminder.tsv', sep='\t')
-facet=sns.FacetGrid(df, row='country')
-facet.map(plt.plot, 'year','lifeExp')
+facet=sns.FacetGrid(df, row= 'country')
+facet.map(plt.plot, 'year',['lifeExp', 'pop'])
+facet.add_legend()
+facet.savefig("output.png")
 # %%
